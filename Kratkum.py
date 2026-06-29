@@ -1,9 +1,19 @@
 import json
-vyrazh = input()
+import sys
+if len(sys.argv) > 1 and sys.argv[1].startswith("-i"):
+    if not sys.argv[1].endswith("r"):
+        with open(f"{sys.argv[2]}.ktkm") as ktkm:
+            vyrazh = ktkm.read.replace("\n", " ")
+    else:
+        with open(sys.argv[2]) as ktkm:
+            vyrazh = ktkm.read.replace("\n", " ")
+else:
+    vyrazh = input()
 w = []
-yyy = ["+", "-", "/", "*", "^", "=", "_", "Σ", "?", "!", "→", "⏟"]
+yyy = ["+", "-", "/", "*", "^", "=", "_", "Σ", "?", "!", "→", "⏟",
+"//"]
 itog = "<math></math>"
-ops = []
+ops = ["×"]
 with open("aliases.json", "r") as aliases: 
     aliases = json.load(aliases)
 vyrazhh = vyrazh.split()
@@ -34,19 +44,22 @@ for i in vyrazhh:
         w.append(f"<msub><mrow>{r[0]}</mrow><mrow>{r[1]}</mrow></msub>")
     elif i == "Σ":
         r = [w.pop(), w.pop(), w.pop()][::-1]
-        w.append(f"<munderover><mo>Σ</mo><mrow>{r[0]}</mrow><mrow>{r[1]}</mrow></munderover>{r[2]}")
+        w.append(f"<munderover><mo>Σ</mo><mrow>{r[0]}</mrow><mrow>{r[1]}<mrow></munderover>{r[2]}")
     elif i in (["+", "-", "/", "*", "="] + ops):
         r = [w.pop(), w.pop()][::-1]
         w.append(f"<mrow>{r[0]}</mrow><mo>{i}</mo><mrow>{r[1]}</mrow>")
     elif i == "⏟":
         r = [w.pop(), w.pop()][::-1]
-        w.append(f"<munderover><mo>⏟</mo><mrow>{r[0]}</mrow><mrow>{r[1]}</mrow></munderover>")
+        w.append(f"<munderover><mo>⏟</mo><mrow>{r[0]}</mrow><mrow>{r[1]}<mrow></munderover>")
     elif i == "?":
         r = [w.pop(), w.pop()][::-1]
         w.append(f"{r[0]}{r[1]}")
     elif i == "!":
         r = [w.pop(), w.pop()][::-1]
         w.append(f'{r[0]}<mspace width="10px"/>{r[1]}')
+    elif i == "//":
+        r = [w.pop(), w.pop()][::-1]
+        w.append(f"<mfrac><mrow>{r[0]}</mrow><mrow>{r[1]}</mrow></mfrac>")
 
 if len(w) > 1:
     print(w)
