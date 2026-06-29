@@ -3,10 +3,10 @@ import sys
 if len(sys.argv) > 1 and sys.argv[1].startswith("-i"):
     if not sys.argv[1].endswith("r"):
         with open(f"{sys.argv[2]}.ktkm") as ktkm:
-            vyrazh = ktkm.read.replace("\n", " ")
+            vyrazh = ktkm.read().replace("\n", " ")
     else:
         with open(sys.argv[2]) as ktkm:
-            vyrazh = ktkm.read.replace("\n", " ")
+            vyrazh = ktkm.read().replace("\n", " ")
 else:
     vyrazh = input()
 w = []
