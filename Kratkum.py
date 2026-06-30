@@ -44,13 +44,13 @@ for i in vyrazhh:
         w.append(f"<msub><mrow>{r[0]}</mrow><mrow>{r[1]}</mrow></msub>")
     elif i == "Σ":
         r = [w.pop(), w.pop(), w.pop()][::-1]
-        w.append(f"<munderover><mo>Σ</mo><mrow>{r[0]}</mrow><mrow>{r[1]}<mrow></munderover>{r[2]}")
+        w.append(f"<munderover><mo>Σ</mo><mrow>{r[0]}</mrow><mrow>{r[1]}</mrow></munderover>{r[2]}")
     elif i in (["+", "-", "/", "*", "="] + ops):
         r = [w.pop(), w.pop()][::-1]
         w.append(f"<mrow>{r[0]}</mrow><mo>{i}</mo><mrow>{r[1]}</mrow>")
     elif i == "⏟":
         r = [w.pop(), w.pop()][::-1]
-        w.append(f"<munderover><mo>⏟</mo><mrow>{r[0]}</mrow><mrow>{r[1]}<mrow></munderover>")
+        w.append(f"<munderover><mo>⏟</mo><mrow>{r[0]}</mrow><mrow>{r[1]}</mrow></munderover>")
     elif i == "?":
         r = [w.pop(), w.pop()][::-1]
         w.append(f"{r[0]}{r[1]}")
