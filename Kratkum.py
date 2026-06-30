@@ -35,7 +35,10 @@ vyrazhh = newvyrazhh
 yyy+=ops
 for i in vyrazhh:
     if not i in yyy:
-        w.append(f"<mi>{i}</mi>")
+        if not i.endswith("\\"):
+            w.append(f"<mi>{i}</mi>")
+        else:
+            w.append(f"<mi>{i[:-1]}</mi>")
     elif i == "^":
         r = [w.pop(), w.pop()][::-1]
         w.append(f"<msup><mrow>{r[0]}</mrow><mrow>{r[1]}</mrow></msup>")
